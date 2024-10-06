@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.PL", "Demo.PL.csproj", "{8015C579-B587-446C-AA38-EC515825A39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.DAL", "..\Demo.DAL\Demo.DAL.csproj", "{02AB2AB1-F2A7-41CA-8EB2-6AC5AB894314}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.BLL", "..\Demo.BLL\Demo.BLL.csproj", "{7A596D2A-D837-4EE6-BF33-63A456AD9DF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8015C579-B587-446C-AA38-EC515825A39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8015C579-B587-446C-AA38-EC515825A39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8015C579-B587-446C-AA38-EC515825A39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8015C579-B587-446C-AA38-EC515825A39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02AB2AB1-F2A7-41CA-8EB2-6AC5AB894314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02AB2AB1-F2A7-41CA-8EB2-6AC5AB894314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02AB2AB1-F2A7-41CA-8EB2-6AC5AB894314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02AB2AB1-F2A7-41CA-8EB2-6AC5AB894314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A596D2A-D837-4EE6-BF33-63A456AD9DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A596D2A-D837-4EE6-BF33-63A456AD9DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A596D2A-D837-4EE6-BF33-63A456AD9DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A596D2A-D837-4EE6-BF33-63A456AD9DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5AF49F8-10D5-4B6E-AAAA-C9804C7AB229}
+	EndGlobalSection
+EndGlobal
