@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Demo.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,17 @@ using System.Threading.Tasks;
 
 namespace Demo.DAL.Contexts
 {
-    internal class MVCDbContext:DbContext
+    public class MVCDbContext:DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
+        public MVCDbContext(DbContextOptions<MVCDbContext> options) : base(options)
+        { 
+
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=.;Database=MVCAPP;Encrypt=false;Trusted_Connection=true");
+        //}
+
+        public DbSet<Department> Departments { get; set; }
     }
 }

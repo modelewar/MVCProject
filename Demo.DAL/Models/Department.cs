@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Demo.DAL.Models
 {
-    internal class Department
+    public  class Department
     {
         public  int  Id { get; set; } //PK
         [Required(ErrorMessage = "Name Is Required ")]
