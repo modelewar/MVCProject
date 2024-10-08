@@ -1,5 +1,6 @@
 ﻿using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
+using Demo.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.NetworkInformation;
 
@@ -19,6 +20,22 @@ namespace Demo.PL.Controllers
         {
             var departments = _departmentRepository.GetAll();
             return View(departments);
+        }
+
+        [HttpGet]
+        public IActionResult Create() 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create( Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                _departmentRepository.Add(department);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(department);
         }
     }
 }
