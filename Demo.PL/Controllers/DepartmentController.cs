@@ -30,10 +30,25 @@ namespace Demo.PL.Controllers
         [HttpPost]
         public IActionResult Create( Department department)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Server Side Validation
             {
                 _departmentRepository.Add(department);
                 return RedirectToAction(nameof(Index));
+            }
+            return View(department);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id is null)
+            {
+                return BadRequest();
+            }//Status Code 400
+            var department = _departmentRepository.GetById(id.Value);
+            if (department is null)
+            {
+                return NotFound();
+
             }
             return View(department);
         }
