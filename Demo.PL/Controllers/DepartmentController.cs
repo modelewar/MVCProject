@@ -13,9 +13,12 @@ namespace Demo.PL.Controllers
         {
             _departmentRepository = departmentRepository;
         }
+
+        // BasURL/Department/Index
         public IActionResult Index()
         {
-            return View();
+            var departments = _departmentRepository.GetAll();
+            return View(departments);
         }
     }
 }
