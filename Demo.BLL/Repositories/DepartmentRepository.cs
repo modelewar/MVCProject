@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BLL.Repositories
 {
-    internal class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private MVCDbContext _dbContext;
         public DepartmentRepository(MVCDbContext dbContext) //ASK clr For Object From DbContext
