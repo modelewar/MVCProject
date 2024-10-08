@@ -28,7 +28,7 @@ namespace Demo.PL
             services.AddControllersWithViews();
             services.AddDbContext<MVCDbContext>(options => 
             {
-                options.UseSqlServer("Server=.;Database=MVCAPP;Encrypt=false;Trusted_Connection=true");
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }); //Allow Dependency injection
         }
 
