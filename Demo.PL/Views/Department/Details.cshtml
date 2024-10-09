@@ -3,6 +3,7 @@
     ViewData["Title"] = "Details";
 }
 
+<h1>Departrment @Model.Name Details</h1>
 
 <div class="form-group">
     <label class="col-form-label" asp-for="Code"></label>
@@ -17,9 +18,9 @@
 <div class="form-group">
     <label class="col-form-label" asp-for="DateOfCreation"></label>
     <input readonly class="form-control" asp-for="DateOfCreation" />
-    <span asp-validation-for="DateOfCreation" class="text-danger"></span>
+     
 </div>
-<a asp-action="Edite" class="btn btn-secondary">Edite</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
 <a asp-action="Index" class="btn btn-light">Back To List</a>
  
   
