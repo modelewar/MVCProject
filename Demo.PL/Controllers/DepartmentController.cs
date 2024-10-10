@@ -62,6 +62,7 @@ namespace Demo.PL.Controllers
 
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Department department , [FromRoute] int id )
         {
             if (id != department.Id)
@@ -82,5 +83,30 @@ namespace Demo.PL.Controllers
             }
                 return View(department);
         }
+        [HttpGet]
+        public IActionResult Delete(int? id) 
+        {
+            return Details(id, "Delete");
+
+        }
+
+        public IActionResult Delete(Department department , [FromRoute] int id)
+        {
+           if(id != department.Id)
+                return BadRequest();
+            try
+            {
+                _departmentRepository.Delete(department);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (System.Exception ex )
+            {
+                ModelState.AddModelError(string.Empty,ex.Message);
+                return View(department);
+            }
+
+
+        }
+
     }
 }

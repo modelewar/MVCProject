@@ -12,6 +12,7 @@ namespace Demo.BLL.Repositories
 {
     public class DepartmentRepository : IDepartmentRepository
     {
+       
         private MVCDbContext _dbContext;
         public DepartmentRepository(MVCDbContext dbContext) //ASK clr For Object From DbContext
         {
