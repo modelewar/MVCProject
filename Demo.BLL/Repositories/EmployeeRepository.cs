@@ -9,40 +9,17 @@ using System.Threading.Tasks;
 
 namespace Demo.BLL.Repositories
 {
-    internal class EmployeeRepository : IEmployeeRepository
+    internal class EmployeeRepository : GenericRedpository<Employee>, IEmployeeRepository
     {
-        private readonly MVCDbContext _dbConytext;
-        public EmployeeRepository(MVCDbContext dbConytext)
-        {
-            _dbConytext = dbConytext;
-        }
-        public int Add(Employee employee)
-        {
-            _dbConytext.Add(employee);
-           return _dbConytext.SaveChanges();
+        private readonly MVCDbContext _dbContext;
+        public EmployeeRepository(MVCDbContext dbcontext) : base(dbcontext)
+        { 
+
         }
 
-        public int Delete(Employee employee)
+        public IQueryable<Employee> GetEmployewByAddress(string Address)
         {
-             _dbConytext.Remove(employee);
-            return _dbConytext.SaveChanges();
-        }
-
-        public IEnumerable<Employee> GetAll()
-        => _dbConytext.Employees.ToList();
-
-
-
-
-        public Employee GetById(int id)
-        => _dbConytext.Employees.Find(id);
-            
-      
-
-        public int Update(Employee employee)
-        {
-           _dbConytext.Employees.Update(employee);
-            return _dbConytext.SaveChanges();
+            return _dbContext.Employees.Where(e => e.Address == Address);
         }
     }
 }

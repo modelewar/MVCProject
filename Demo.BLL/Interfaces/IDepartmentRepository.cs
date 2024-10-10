@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 namespace Demo.BLL.Interfaces
 {
     //
-    public interface IDepartmentRepository
+    public interface IDepartmentRepository:IGenericRepository<Department>
     {
-        public IEnumerable<Department> GetAll();
-        Department GetById(int id);
-        int Add(Department department);
-        int Update(Department department);
-        int Delete(Department department);
+ 
     }
 }
