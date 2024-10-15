@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BLL.Repositories
 {
-    internal class EmployeeRepository : GenericRedpository<Employee>, IEmployeeRepository
+    public class EmployeeRepository : GenericRedpository<Employee>, IEmployeeRepository
     {
         private readonly MVCDbContext _dbContext;
         public EmployeeRepository(MVCDbContext dbcontext) : base(dbcontext)

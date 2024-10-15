@@ -35,7 +35,7 @@ namespace Demo.BLL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Set<T>().ToList(); 
         }
 
         public int Update(T item)
