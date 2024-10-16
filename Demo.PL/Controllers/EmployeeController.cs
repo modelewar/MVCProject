@@ -30,7 +30,7 @@ namespace Demo.PL.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Departments = _departmentRepository.GetAll();
+            //ViewBag.Departments = _departmentRepository.GetAll();
             return View();
         }
 

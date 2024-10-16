@@ -1,6 +1,9 @@
-﻿@model Employee
+﻿
+
+@model Employee
+@inject IDepartmentRepository DepartmentRepo
 @{
-    var departments = new SelectList(ViewBag.Departments , "Id","Name");
+    var departments = new SelectList(DepartmentRepo.GetAll(), "Id", "Name");
 }
 <div class="form-group">
     <label class="col-form-label" asp-for="Isctive"></label>
