@@ -19,6 +19,7 @@ namespace Demo.PL.Controllers
         public IActionResult Index()
         {
             var departments = _departmentRepository.GetAll();
+            ViewData["Message"] = "Message From ViewData";
             return View(departments);
         }
 
@@ -32,7 +33,14 @@ namespace Demo.PL.Controllers
         {
             if (ModelState.IsValid) //Server Side Validation
             {
-                _departmentRepository.Add(department);
+                int Result = _departmentRepository.Add(department);
+                //TempData => Dictionary Object
+                //Transfer Data From Action To Action
+                if(Result >0)
+                {
+                    TempData["Message"] = $"Department {department.Name} is Created ";
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(department);
