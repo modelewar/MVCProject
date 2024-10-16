@@ -6,6 +6,7 @@ using Demo.PL.viewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Demo.PL.Controllers
 {
@@ -23,13 +24,18 @@ namespace Demo.PL.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+   
+        public IActionResult Index(string SearchValue)
         {
-            var employees = _employeerepository.GetAll();
-            var MappedEmployee = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employees);
-            //ViewData : KeyValuePair
-            //To Transfer Data From Controller [IAction] to it`s View 
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(SearchValue))
 
+                employees = _employeerepository.GetAll();
+
+            else
+
+                employees = _employeerepository.GetEmployeeByName(SearchValue);
+            var MappedEmployee = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employees);
             return View(MappedEmployee);
 
         }
