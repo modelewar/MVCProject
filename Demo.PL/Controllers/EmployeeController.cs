@@ -21,8 +21,7 @@ namespace Demo.PL.Controllers
             var employees = _employeerepository.GetAll();
             //ViewData : KeyValuePair
             //To Transfer Data From Controller [IAction] to it`s View 
-            ViewData["Message"] = "Message From ViewData";
-            ViewBag.Message = "Message From ViewBag";
+
             return View(employees);
 
         }

@@ -2,9 +2,6 @@
 @{
     ViewData["Title"] = "All Employees";
 }
-<div class="alert alert-danger">
-    @ViewBag.Message
-</div>
 
 <a asp-action="Create" class="btn btn-success">Create New Employee</a>
 <br />
@@ -22,6 +19,7 @@
                 <td>@Html.DisplayNameFor(Employee => Employee.Email)</td>
                 <td>@Html.DisplayNameFor(Employee => Employee.PhoneNumber)</td>
                 <td>@Html.DisplayNameFor(Employee => Employee.HirDate)</td>
+                <td>@Html.DisplayNameFor(Employee => Employee.Isctive)</td>
                 <td>Details</td>
                 <td>Update</td>
                 <td>Delete</td>
@@ -33,15 +31,26 @@
                 <tr>
                     <td>@employee.Name</td>
                     <td>@employee.Age</td>
-                    <td>@employee.Salary</td>
+                    <td>@Html.DisplayFor(E=> employee.Salary)</td>
                     <td>@employee.Address</td>
-                    <td>@employee.Email</td>
+                    <td>@Html.DisplayFor(E => employee.Email)</td>
                     <td>@employee.PhoneNumber</td>
-                    <td>@employee.HirDate</td>tbody>
-                    <td><a asp-action="Details" asp-route-id="@employee.Id"><i class="fas fa-eye"></i></a></td>
-                    <td><a asp-action="Edit" asp-route-id="@employee.Id"><i class="fas fa-edit"></i></a></td>
-                    <td><a asp-action="Delete" asp-route-id="@employee.Id"><i class="fas fa-trash"></i></a></td>
+                    <td>@employee.HirDate</td>
+                    <td>
+                        @if (employee.Isctive== true)
+                        {
 
+                            <i class="fa-solid fa-circle" style="color:green"></i>
+                        }
+                        else
+                        {
+                          <i class="fa-solid fa-circle" style="color:red"></i>
+                        }
+
+                    </td>
+
+
+                    <partial name="_ButtonPartialView" model="@employee.Id" />
                 </tr>
             }
         </tbody>

@@ -26,6 +26,7 @@ namespace Demo.DAL.Models
         [DataType(DataType.Currency)]
         public decimal Salary { get; set; }
         public bool Isctive { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
