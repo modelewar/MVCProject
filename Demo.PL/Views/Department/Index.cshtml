@@ -3,12 +3,15 @@
 @{
     ViewData["Title"] = "All Departments";
 }
-<a asp-action="Create" class="btn-success">Create New Department</a>
+<div class="alert alert-danger">
+    @TempData["Message"]
+</div>
+<a asp-action="Create" class="btn btn-success">Create New Department</a>
+<br />
 <br />
 @if(Model.Count()>0)
 {
     <h1> All Departments</h1>
-    <br /> 
     <table class="table table-striped table-hover mt-3">
         <thead>
             <tr>
@@ -28,9 +31,8 @@
                     <td>@department.Code</td>
                     <td>@department.Name</td>
                     <td>@department.DateOfCreation</td>
-                    <td><a asp-action="Details" asp-route-id="@department.Id"><i class="fas fa-eye"></i></a></td>
-                    <td><a asp-action="Edit" asp-route-id="@department.Id"><i class="fas fa-edit"></i></a></td>
-                    <td>Delete</td>
+
+                    <partial name="_ButtonPartialView" model="@department.Id" />
                 </tr>
                 
             }
