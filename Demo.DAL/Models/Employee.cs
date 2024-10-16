@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,13 @@ namespace Demo.DAL.Models
         public string PhoneNumber { get; set; }
         public DateTime HirDate { get; set; }
         public DateTime CreationDate { get; set; }= DateTime.Now;
+        [ForeignKey("Department")]
+        public int? DepartmentId { get; set; }
+        //FK Optional => OnDelete:Restrict 
+        //FK Required => OnDelete:Cascade
+
+        [InverseProperty("Employees")]
+        public Department Department { get; set; }
 
     }
 }

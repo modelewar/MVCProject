@@ -8,16 +8,18 @@ namespace Demo.PL.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeerepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeerepository)
+        public EmployeeController(IEmployeeRepository employeerepository , IDepartmentRepository departmentRepository)
         {
             _employeerepository = employeerepository;
-
+            _departmentRepository = departmentRepository;
 
         }
 
         public IActionResult Index()
         {
+            
             var employees = _employeerepository.GetAll();
             //ViewData : KeyValuePair
             //To Transfer Data From Controller [IAction] to it`s View 
@@ -28,6 +30,7 @@ namespace Demo.PL.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Departments = _departmentRepository.GetAll();
             return View();
         }
 
