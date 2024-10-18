@@ -12,21 +12,21 @@ namespace Demo.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly  IDepartmentRepository _departmentRepository;//Aggregation Relationship
+        private readonly  IUnitOfWork _unitOfWork;//Aggregation Relationship
         private readonly IMapper _mapper;
 
-        public DepartmentController(IDepartmentRepository departmentRepository ,IMapper mapper) //Ask CLR For Creating Object From Class Implement The Interface IDepartmentRepository
+        public DepartmentController(IUnitOfWork unitOfWork ,IMapper mapper) //Ask CLR For Creating Object From Class Implement The Interface IDepartmentRepository
         {
-            _departmentRepository = departmentRepository;
+            _unitOfWork=unitOfWork;
             _mapper = mapper;
         }
 
         // BasURL/Department/Index
         public IActionResult Index()
         {
-            var departments = _departmentRepository.GetAll();
+            var departments = _unitOfWork.DepartmentRepository.GetAll();
             var MappedDepartment = _mapper.Map<IEnumerable<Department>,IEnumerable<DepartmentViewModel>>(departments);
-            ViewData["Message"] = "Message From ViewData";
+             
             return View(MappedDepartment);
         }
 
@@ -41,10 +41,11 @@ namespace Demo.PL.Controllers
             if (ModelState.IsValid) //Server Side Validation
             {
                 var MappedDepartment = _mapper.Map<DepartmentViewModel, Department>(departmentVM);
-                int Result = _departmentRepository.Add(MappedDepartment);
+                _unitOfWork.DepartmentRepository.Add(MappedDepartment);
+                int Result = _unitOfWork.Complete();
                 //TempData => Dictionary Object
                 //Transfer Data From Action To Action
-                if(Result >0)
+                if (Result >0)
                 {
                     TempData["Message"] = $"Department {departmentVM.Name} is Created ";
                 }
@@ -59,7 +60,7 @@ namespace Demo.PL.Controllers
             if (id is null)
               return BadRequest();//Status Code 400
             
-            var department = _departmentRepository.GetById(id.Value);
+            var department = _unitOfWork.DepartmentRepository.GetById(id.Value);
             if (department is null)
                 return NotFound();
             var MappedDepartments = _mapper.Map<Department, DepartmentViewModel>(department);
@@ -90,7 +91,8 @@ namespace Demo.PL.Controllers
                 try
                 {
                     var MappedDepartment = _mapper.Map<DepartmentViewModel,Department>(departmentVM);
-                    _departmentRepository.Update(MappedDepartment);
+                    _unitOfWork.DepartmentRepository.Update(MappedDepartment);
+                    _unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (System.Exception ex)
@@ -116,7 +118,8 @@ namespace Demo.PL.Controllers
             try
             {
                 var MappedDepartment = _mapper.Map<DepartmentViewModel, Department>(departmentVM);
-                _departmentRepository.Delete(MappedDepartment);
+                _unitOfWork.DepartmentRepository.Delete(MappedDepartment);
+                _unitOfWork.Complete();
                 return RedirectToAction(nameof(Index));
             }
             catch (System.Exception ex )

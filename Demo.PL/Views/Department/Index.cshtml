@@ -3,9 +3,13 @@
 @{
     ViewData["Title"] = "All Departments";
 }
-<div class="alert alert-danger">
-    @TempData["Message"]
-</div>
+@if (@TempData["Message"] is not null)
+{
+    <div id="MessageDiv" class="alert alert-success mt-3">
+        @TempData["Message"]
+    </div>
+}
+
 <a asp-action="Create" class="btn btn-success">Create New Department</a>
 <br />
 <br />

@@ -38,6 +38,7 @@ namespace Demo.PL
             services.AddTransient<IEmployeeRepository,EmployeeRepository>();
             services.AddAutoMapper(M => M.AddProfile(new EmployeeProfiel()));
             services.AddAutoMapper(M => M.AddProfile(new DepartmentProfil()));
+            services.AddScoped<IUnitOfWork, UnitOfWrk>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
