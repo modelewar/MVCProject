@@ -7,7 +7,7 @@
 
 <div asp-validation-summary="All"></div>
 <br />
-<form asp-action="Edit">
+<form asp-action="Edit" enctype="multipart/form-data">
     <partial name="PartialViews/_CreateEditPartialView" />
     <input type="submit" value="Save" />
     <a asp-action="Index" class="btn btn-light">Back To List</a>
