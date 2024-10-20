@@ -1,6 +1,7 @@
 using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
 using Demo.DAL.Contexts;
+using Demo.PL.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,7 +35,10 @@ namespace Demo.PL
             }); //Allow Dependency injection
 
             services.AddScoped<IDepartmentRepository,DepartmentRepository>();
-            services.AddScoped<IEmployeeRepository,EmployeeRepository>();
+            services.AddTransient<IEmployeeRepository,EmployeeRepository>();
+            services.AddAutoMapper(M => M.AddProfile(new EmployeeProfiel()));
+            services.AddAutoMapper(M => M.AddProfile(new DepartmentProfil()));
+            services.AddScoped<IUnitOfWork, UnitOfWrk>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

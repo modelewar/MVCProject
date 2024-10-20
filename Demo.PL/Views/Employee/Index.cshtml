@@ -1,17 +1,28 @@
-﻿@model IEnumerable<Employee>
+﻿@model IEnumerable<EmployeeViewModel>
 @{
     ViewData["Title"] = "All Employees";
 }
 
 <a asp-action="Create" class="btn btn-success">Create New Employee</a>
 <br />
+
 @if (Model.Count()>0)
 {
     <h1>All Employees</h1>
+    <form class="row" asp-action="Index">
+        <div class="col-8">
+            <input class="form-control" type="text" name="SearchValue" placeholder="Employees`s Name" />
+        </div>
+
+        <div class="col-4">
+            <input class="btn btn-info" type="submit" value="Search" />
+        </div>
+    </form>
     
     <table class="table table-striped table-hover mt-3">
         <thead>
             <tr>
+                <td>@Html.DisplayNameFor(Employee => Employee.Image)</td>
                 <td>@Html.DisplayNameFor(Employee => Employee.Name)</td>
                 <td>@Html.DisplayNameFor(Employee => Employee.Age)</td>
                 <td>@Html.DisplayNameFor(Employee => Employee.Salary)</td>
@@ -30,6 +41,7 @@
             @foreach (var employee in Model)
             {
                 <tr>
+                    <td><img src="~/Fiels/Images/@employee.ImageName" class="rounded" height="40" width="40" alt="Employee Image"/> </td>
                     <td>@employee.Name</td>
                     <td>@employee.Age</td>
                     <td>@Html.DisplayFor(E=> employee.Salary)</td>
