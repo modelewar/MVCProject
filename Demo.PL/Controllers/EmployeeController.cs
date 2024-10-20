@@ -52,10 +52,21 @@ namespace Demo.PL.Controllers
         {
             if (ModelState.IsValid)     
             {
+                if(employeeVM.Image is not null)
+               
                 employeeVM.ImageName=DocumentSettings.UploadFile(employeeVM.Image, "Images");
+               
+ 
+
                 var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(employeeVM);
                 _unitOfWork.EmployeeRepository.Add(MappedEmployee);
-                _unitOfWork.Complete();
+                int Result =_unitOfWork.Complete();
+                if (Result > 0)
+                {
+                    TempData["Message"] = $"Employee {employeeVM.Name} is Created ";
+
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(employeeVM);
@@ -126,7 +137,11 @@ namespace Demo.PL.Controllers
             {
                 var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(employeeVM);
                 _unitOfWork.EmployeeRepository.Delete(MappedEmployee);
-                _unitOfWork.Complete();
+                var Result = _unitOfWork.Complete();
+                if(Result > 0&&employeeVM.ImageName is not null)
+                {
+                    DocumentSettings.DeleteFile("Images", employeeVM.ImageName);
+                }
                 return RedirectToAction(nameof(Index));
 
             }

@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "All Employees";
 }
+@if (@TempData["Message"] is not null)
+{
+    <div id="Message" class="alert alert-success mt-3">
+        @TempData["Message"]
+    </div>
+}
 
 <a asp-action="Create" class="btn btn-success">Create New Employee</a>
 <br />
