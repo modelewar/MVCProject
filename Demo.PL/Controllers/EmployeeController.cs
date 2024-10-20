@@ -2,6 +2,7 @@
 using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
 using Demo.DAL.Models;
+using Demo.PL.Helpers;
 using Demo.PL.viewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
@@ -49,9 +50,10 @@ namespace Demo.PL.Controllers
         [HttpPost]
         public IActionResult Create(EmployeeViewModel employeeVM)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid)     
             {
-               var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(employeeVM);
+                employeeVM.ImageName=DocumentSettings.UploadFile(employeeVM.Image, "Images");
+                var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(employeeVM);
                 _unitOfWork.EmployeeRepository.Add(MappedEmployee);
                 _unitOfWork.Complete();
                 return RedirectToAction(nameof(Index));
