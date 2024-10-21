@@ -1,10 +1,12 @@
 using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
 using Demo.DAL.Contexts;
+using Demo.DAL.Models;
 using Demo.PL.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,7 +41,25 @@ namespace Demo.PL
             services.AddAutoMapper(M => M.AddProfile(new EmployeeProfiel()));
             services.AddAutoMapper(M => M.AddProfile(new DepartmentProfil()));
             services.AddScoped<IUnitOfWork, UnitOfWrk>();
-        }
+
+            services.AddIdentity<ApplicationUser ,IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = true;
+				options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+				//P@asw0rd
+
+			}
+			)
+                .AddEntityFrameworkStores<MVCDbContext>();
+
+			//services.AddScoped<UserManager<ApplicationUser>>();
+			//services.AddScoped<SignInManager<ApplicationUser>>();
+			//services.AddScoped<RoleManager<IdentityRole>>();
+
+			services.AddAuthentication();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,7 +85,7 @@ namespace Demo.PL
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Register}/{id?}");
             });
         }
     }
