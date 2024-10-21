@@ -3,6 +3,7 @@ using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
 using Demo.DAL.Models;
 using Demo.PL.viewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Demo.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly  IUnitOfWork _unitOfWork;//Aggregation Relationship

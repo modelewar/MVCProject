@@ -3,6 +3,7 @@ using Demo.BLL.Repositories;
 using Demo.DAL.Contexts;
 using Demo.DAL.Models;
 using Demo.PL.MappingProfiles;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,13 +54,23 @@ namespace Demo.PL
 
 			}
 			)
-                .AddEntityFrameworkStores<MVCDbContext>();
+                .AddEntityFrameworkStores<MVCDbContext>()
+                .AddDefaultTokenProviders();
 
 			//services.AddScoped<UserManager<ApplicationUser>>();
 			//services.AddScoped<SignInManager<ApplicationUser>>();
 			//services.AddScoped<RoleManager<IdentityRole>>();
 
-			services.AddAuthentication();
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+				options.LoginPath = "Account/Login";
+				options.AccessDeniedPath = "Home/Error";
+
+			});
+
+
+
+
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,14 +90,14 @@ namespace Demo.PL
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Register}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
