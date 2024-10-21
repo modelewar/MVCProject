@@ -2,4 +2,5 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-$('#MessageDiv').delay(1000).fadeOut(500);
+$('#MessageDiv').delay(1500).fadeOut(500);
+$('#Message').delay(1500).fadeOut(500);
