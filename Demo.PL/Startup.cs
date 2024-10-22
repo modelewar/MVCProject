@@ -44,7 +44,7 @@ namespace Demo.PL
             services.AddScoped<IUnitOfWork, UnitOfWrk>();
             //services.AddAutoMapper(M => M.AddProfile(new EmployeeProfiel()));
             //services.AddAutoMapper(M => M.AddProfile(new DepartmentProfil()));
-            services.AddAutoMapper(M =>M.AddProfiles(new List<Profile> { new EmployeeProfiel() ,new DepartmentProfil(),new UserProfile() }));
+            services.AddAutoMapper(M =>M.AddProfiles(new List<Profile> { new EmployeeProfiel() ,new DepartmentProfil(),new UserProfile() , new RoleProfiel() }));
 
             services.AddIdentity<ApplicationUser ,IdentityRole>(options =>
             {

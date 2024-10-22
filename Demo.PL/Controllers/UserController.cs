@@ -43,7 +43,7 @@ namespace Demo.PL.Controllers
 			}
             else
             {
-                var user = await _userManager.FindByEmailAsync(Searchvalue);
+                var user = await _userManager.FindByNameAsync(Searchvalue);
 
                 if (user == null)
                 {
