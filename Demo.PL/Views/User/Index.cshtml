@@ -22,6 +22,7 @@
                 <td>@Html.DisplayNameFor(U => U.Id)</td>
                 <td>@Html.DisplayNameFor(U => U.FName)</td>
                 <td>@Html.DisplayNameFor(U => U.LName)</td>
+                <td>@Html.DisplayNameFor(U => U.PhoneNumber)</td>
                 <td>@Html.DisplayNameFor(U => U.Email)</td>
                 <td>@Html.DisplayNameFor(U => U.Roles)</td>
  
@@ -38,6 +39,7 @@
                     <td>@user.Id</td>
                     <td>@user.FName</td>
                     <td>@user.LName</td>
+                    <td>@user.PhoneNumber</td>
                     <td>@user.Email</td>
                     <td>@string.Join(", ", user.Roles)</td>
 
@@ -52,5 +54,9 @@
 }
 else
 {
-    
+
+<div style="border: 1px solid red; background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; text-align: center;">
+    <strong>User Not Found:</strong> The user you are looking for does not exist.
+</div>
+
 }

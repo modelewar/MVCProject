@@ -1,0 +1,15 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit User  @Model.FName</h1>
+<div asp-validation-summary="All">
+</div>
+<br />
+<form asp-action="Edit">
+    <partial name="PartialViews\_CreateEditUserPartialView" />
+
+    <input type="submit" value="save" class="btn-primary" />
+    <a asp-action="Index" class="btn-light">Back To List</a>
+</form>

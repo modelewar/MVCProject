@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -77,6 +78,40 @@ namespace Demo.PL.Controllers
 			var MappedUser = _mapper.Map<ApplicationUser, UserViewModel>(user);
 			return View(ViewName, MappedUser);
  
+        }
+
+        public async Task<IActionResult> Edit(string id )
+        {
+            return await Details(id, "Edit");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserViewModel model , [FromRoute] string id )
+        {
+            if (id != model.Id)
+                return BadRequest();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var User = await _userManager.FindByIdAsync(id);
+                    User.FName = model.FName;
+                    User.LName = model.LName;
+                    User.PhoneNumber = model.PhoneNumber;
+                    await _userManager.UpdateAsync( User);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (System.Exception ex)
+                {
+
+                    ModelState.AddModelError(string.Empty, ex.Message); 
+                }
+
+            }
+             
+            
+                return View(model); 
+           
         }
 	}
 }
