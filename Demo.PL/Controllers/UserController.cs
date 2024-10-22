@@ -113,5 +113,32 @@ namespace Demo.PL.Controllers
                 return View(model); 
            
         }
+
+        public async Task<IActionResult> Delete(string id) 
+        { 
+            return await Details(id,"Delete");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmDelete(UserViewModel model , [FromRoute] string id ) 
+        {
+
+            if (id!= model.Id)
+                return BadRequest();
+            try
+            {
+           
+                var user= await _userManager.FindByIdAsync(id);
+ 
+                await _userManager.DeleteAsync(user);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (System.Exception ex)
+            {
+
+                ModelState.AddModelError(string.Empty,ex.Message);
+                return RedirectToAction("Error","Home");
+            }
+        }
 	}
 }
