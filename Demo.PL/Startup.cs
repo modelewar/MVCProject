@@ -1,3 +1,4 @@
+using AutoMapper;
 using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
 using Demo.DAL.Contexts;
@@ -40,9 +41,10 @@ namespace Demo.PL
 
             services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             services.AddTransient<IEmployeeRepository,EmployeeRepository>();
-            services.AddAutoMapper(M => M.AddProfile(new EmployeeProfiel()));
-            services.AddAutoMapper(M => M.AddProfile(new DepartmentProfil()));
             services.AddScoped<IUnitOfWork, UnitOfWrk>();
+            //services.AddAutoMapper(M => M.AddProfile(new EmployeeProfiel()));
+            //services.AddAutoMapper(M => M.AddProfile(new DepartmentProfil()));
+            services.AddAutoMapper(M =>M.AddProfiles(new List<Profile> { new EmployeeProfiel() ,new DepartmentProfil(),new UserProfile() }));
 
             services.AddIdentity<ApplicationUser ,IdentityRole>(options =>
             {
