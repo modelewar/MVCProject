@@ -57,7 +57,8 @@ namespace Demo.PL.Controllers
 
         #endregion
 
-        //Login
+
+        #region//Login
 
         public IActionResult Login()
         {
@@ -65,8 +66,8 @@ namespace Demo.PL.Controllers
         }
 
         [HttpPost]
-		public async Task<IActionResult> Login(LoginViewModel model)
-		{
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
 
             if (ModelState.IsValid)
             {
@@ -75,32 +76,45 @@ namespace Demo.PL.Controllers
                 {
                     //Login
 
-                    bool flag = await _userManager.CheckPasswordAsync(user,model.Password);
-                    if(flag)
+                    bool flag = await _userManager.CheckPasswordAsync(user, model.Password);
+                    if (flag)
                     {
                         //Login
-                         var Result  =await _signInManager.PasswordSignInAsync(user, model.Password,model.RememberMe,false);
+                        var Result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                         if (Result.Succeeded)
                         {
-                            return RedirectToAction("Index","Home");
+                            return RedirectToAction("Index", "Home");
                         }
-					}
+                    }
                     else
                     {
-						ModelState.AddModelError(string.Empty, "Invalid password.");
-					}
+                        ModelState.AddModelError(string.Empty, "Invalid password.");
+                    }
                 }
                 else
                 {
-					ModelState.AddModelError(string.Empty, "User not found.");
-				}
+                    ModelState.AddModelError(string.Empty, "User not found.");
+                }
 
             }
-			return View(model);
-		}
+            return View(model);
+        }
+        #endregion
+        #region //Sign Out
 
-		//Sign Out
-		//Forget Passoward
-		//Reset Password
-	}
+        public new async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+
+
+
+
+        #endregion
+
+
+        //Forget Passoward
+        //Reset Password
+    }
 }
