@@ -8,15 +8,15 @@ namespace Demo.PL.Controllers
 {
     public class AccountController : Controller
     {
-		private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-		public AccountController(UserManager<ApplicationUser> userManager ,SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-			_userManager = userManager;
-			_signInManager= signInManager;
-		}
-		#region Register
-		[HttpGet]
+            _userManager = userManager;
+            _signInManager= signInManager;
+        }
+        #region Register
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -56,7 +56,6 @@ namespace Demo.PL.Controllers
         }
 
         #endregion
-
 
         #region//Login
 
@@ -100,6 +99,7 @@ namespace Demo.PL.Controllers
             return View(model);
         }
         #endregion
+
         #region //Sign Out
 
         public new async Task<IActionResult> SignOut()
@@ -115,6 +115,38 @@ namespace Demo.PL.Controllers
 
 
         //Forget Passoward
-        //Reset Password
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(ForgetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if(user is not null){
+
+                    var Email = new Email() 
+                    { 
+                        Subject = "Reset Password",
+                        To = model.Email,
+                        Body = "Reset Password Link"
+                    };
+
+                }
+            }
+            else
+            {
+                return View("ForgetPassword", model);
+            }
+
+            return View(model);
+        }
     }
 }
+
+
+        //Reset Password
+    
+
