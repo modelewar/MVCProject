@@ -1,4 +1,5 @@
 ﻿using Demo.DAL.Models;
+using Demo.PL.Helpers;
 using Demo.PL.viewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -127,21 +128,35 @@ namespace Demo.PL.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if(user is not null){
 
+
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var RestPasswordLink = Url.Action("RstPassword","Account",new {email = user.Email , Token = token}  ,Request.Scheme );
+
                     var Email = new Email() 
                     { 
                         Subject = "Reset Password",
                         To = model.Email,
-                        Body = "Reset Password Link"
+                        Body = RestPasswordLink
                     };
+                    EmailSettings.SendEmail(Email); 
+                    return RedirectToAction(nameof(CheakInbox));
 
                 }
-            }
-            else
-            {
-                return View("ForgetPassword", model);
-            }
 
-            return View(model);
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Email.");
+                }
+            }
+ 
+                return View("ForgetPassword", model);
+
+        }
+
+        public IActionResult CheakInbox()
+        {
+            return View();
         }
     }
 }
