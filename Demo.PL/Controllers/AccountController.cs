@@ -131,13 +131,13 @@ namespace Demo.PL.Controllers
 
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                    var RestPasswordLink = Url.Action("RstPassword","Account",new {email = user.Email , Token = token}  ,Request.Scheme );
+                    var ResetPasswordLink = Url.Action("ResetPassword","Account",new {email = user.Email , Token = token}  ,Request.Scheme );
 
                     var Email = new Email() 
                     { 
                         Subject = "Reset Password",
                         To = model.Email,
-                        Body = RestPasswordLink
+                        Body = ResetPasswordLink
                     };
                     EmailSettings.SendEmail(Email); 
                     return RedirectToAction(nameof(CheakInbox));
@@ -157,6 +157,42 @@ namespace Demo.PL.Controllers
         public IActionResult CheakInbox()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult ResetPassword( string email , string token)
+        {
+            TempData["email"] = email;  
+            TempData["token"] = token;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model )
+        {
+
+            if (ModelState.IsValid)
+            {
+                //var email = TempData["email"];
+                //var token = TempData["token"] ;
+
+                string email = TempData["email"] as string;
+                string token = TempData["token"] as string;
+
+                var user = await _userManager.FindByEmailAsync(email);
+                var Result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+                if (Result.Succeeded)
+
+                    return RedirectToAction(nameof(Login));
+
+                else
+
+                    foreach (var error in Result.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+
+            }
+
+                return View(model);
+         
+
         }
     }
 }
